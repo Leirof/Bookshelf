@@ -11,23 +11,31 @@ summon armor_stand ~ ~ ~ {Tags:["bs.unitest"]}
 
 # USAGE -----------------------------------------------------------------------
 
-scoreboard players set @e[tag=bs.unitest] bs.in.0 12
-scoreboard players set @e[tag=bs.unitest] bs.in.1 5
-execute as @e[tag=bs.unitest] run function bs.bitwise:and
+scoreboard players set $bitwise.and.0 bs.in 12
+scoreboard players set $bitwise.and.1 bs.in 5
+function bs.bitwise:and
 
 # RESULTS ----------------------------------------------------------------------
 
-execute as @e[tag=bs.unitest] unless score @s bs.out.0 matches 4 run tellraw @a [{"text":"[bs.bistwise:and] expected 12x5 = 4, got ", "color": "red"}, {"score":{"name":"@s","objective":"bs.out.0"}}]
+execute unless score $bitwise.and bs.out matches 4 run function bs.log { \
+  path: 'bs.bitwise:and', \
+  feature: 'bitwise.and', \
+  message: '{"text":"Expected 12x5 = 4, got "}, {"score":{"name":"$bitwise.and","objective":"bs.out"}}' \
+}
 
 # USAGE -----------------------------------------------------------------------
 
-scoreboard players set @e[tag=bs.unitest] bs.in.0 -9
-scoreboard players set @e[tag=bs.unitest] bs.in.1 57
-execute as @e[tag=bs.unitest] run function bs.bitwise:and
+scoreboard players set $bitwise.and.0 bs.in -9
+scoreboard players set $bitwise.and.1 bs.in 57
+function bs.bitwise:and
 
 # RESULTS ----------------------------------------------------------------------
 
-execute as @e[tag=bs.unitest] unless score @s bs.out.0 matches 49 run tellraw @a [{"text":"[bs.bistwise:and] expected -9x57 = 49, got ", "color": "red"}, {"score":{"name":"@s","objective":"bs.out.0"}}]
+execute unless score $bitwise.and bs.out matches 49 run function bs.log { \
+  path: 'bs.bitwise:and', \
+  feature: 'bitwise.and', \
+  message: '{"text":"Expected -9x57 = 49, got "}, {"score":{"name":"$bitwise.and","objective":"bs.out"}}' \
+}
 
 #=============================================================================#
 #                                                                             #
